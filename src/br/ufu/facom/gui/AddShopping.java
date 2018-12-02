@@ -1,4 +1,4 @@
-package br.ufu.facom.connection;
+package br.ufu.facom.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import br.ufu.facom.connection.ConnectionDB;
 
 public class AddShopping {
 	private final JButton btnContinuar = new JButton("Continuar");
@@ -27,14 +29,9 @@ public class AddShopping {
 	public AddShopping(JComboBox<Object> comboBox) {
 		this.comboBox = comboBox;
 		
-		txtNome.setBounds(92, 10, 192, 19);
 		txtNome.setColumns(10);
-		
-		txtEndereco.setBounds(92, 35, 192, 19);
 		txtEndereco.setColumns(10);
-		
-		txtTelefone.setBounds(92, 62, 192, 19);
-		txtTelefone.setColumns(10);
+		txtTelefone.setColumns(10);		
 		
 		dialog.setTitle("Adicionar Shopping");
 		dialog.setVisible(true);
@@ -45,9 +42,12 @@ public class AddShopping {
 		dialog.setLocationRelativeTo(null);
 		dialog.getContentPane().add(panel_1);
 		
-		panel_1.setBounds(12, 12, 296, 125);
 		panel_1.setLayout(null);
 		
+		txtNome.setBounds(92, 10, 192, 19);
+		txtEndereco.setBounds(92, 35, 192, 19);
+		txtTelefone.setBounds(92, 62, 192, 19);
+		panel_1.setBounds(12, 12, 296, 125);
 		lblNome.setBounds(12, 12, 66, 15);
 		lblEndereo.setBounds(12, 37, 77, 15);
 		lblTelefone.setBounds(12, 64, 66, 15);
@@ -107,7 +107,7 @@ public class AddShopping {
 				  comboBox.addItem(txtNome.getText());
 				  if(comboBox.isEnabled() == false)
 					  comboBox.setEnabled(true);
-				  JOptionPane.showMessageDialog(null, "Shopping " + txtNome.getText() + " adicionado");
+				  ConnectionDB.insertShopping(txtNome.getText(), txtEndereco.getText(), txtTelefone.getText());
 				  dialog.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, txtNome.getText() + " já está cadastrado", "ERRO", JOptionPane.ERROR_MESSAGE);
